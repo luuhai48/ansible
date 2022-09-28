@@ -1,0 +1,19 @@
+- name: Init Server
+  hosts: host_group
+  become: yes # root privilege
+  gather_facts: true
+
+  roles:
+    - role: user
+      vars:
+        username: "{{ vars['username'] }}"
+        password: "{{ vars['password'] }}"
+
+    - role: oh-my-zsh
+      vars:
+        username: "{{ vars['username'] }}"
+
+    - role: docker
+      vars:
+        docker_users: 
+          - "{{ vars['username'] }}"
